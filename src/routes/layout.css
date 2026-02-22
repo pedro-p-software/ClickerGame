@@ -16,7 +16,25 @@
     "ELXP" 0;
 }
 
-.pressed{
+.clicked{
     transform: translateY(20px);
     box-shadow: 0 0 0 darkred;
+
 }
+
+.ComicNeue{
+  font-family: "Comic Neue", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.explode{
+  animation: explode 0.5s ease-out;
+}
+
+@keyframes explode{
+  0% {transform: scale(0);}
+  60% {transform: scale(1.2);}
+  100%{transform: scale(1);}
+}
+

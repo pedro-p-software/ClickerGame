@@ -10,13 +10,24 @@
     let TenthTimeClicking = $derived(clicks>=10);
     let hundredthTimeClicking = $derived(clicks>=100);
 
+    let clicksPerClick = $state(1);
+
 
     let btnFace = $derived(clicked ? ":3" : ":I");
 
     function pressed() {
         clicked = true;
-        clicks++;
+        clicks += clicksPerClick;
 
+    }
+
+    let timesBought = $state(1);
+    let price = $derived(50*timesBought);
+
+    function clickImprovementBought(){
+        clicksPerClick+=2;
+        clicks -= (price);
+        timesBought++;
     }
 
 </script>
@@ -64,5 +75,8 @@
         {shopOpened
             ? 'translate-x-0'
             : 'translate-x-full'}"
-    ></div>
+    >
+        <button class="w-40" onclick={clickImprovementBought} id="clickImprovement"> CLICK POWER: {price} bucks</button>
+    </div>
 </div>
+<button onclick={clicks+=1000}> HACK </button>

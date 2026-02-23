@@ -4,6 +4,7 @@
 
     let clicked = $state(false);
     let clicks = $state(0);
+    let clicksVisibility = false;
 
     let shopOpened = $state(false);
 
@@ -22,10 +23,10 @@
     }
 
     let timesBought = $state(1);
-    let price = $derived(50*timesBought);
+    let price = $derived((5*timesBought)**2);
 
     function clickImprovementBought(){
-        clicksPerClick+=2;
+        clicksPerClick+=3;
         clicks -= (price);
         timesBought++;
     }
@@ -34,7 +35,7 @@
 
 <div class="justify-center items-center h-screen flex">
     <div
-        class=" flex absolute left-5 top-5 bg-emerald-700 border-2 border-black z-2 w-65 h-20 {clicks >= 10 ? 'visible' : 'invisible'}"
+        class=" flex absolute left-5 top-5 bg-emerald-700 border-2 border-black z-2 w-65 h-20 invisible {TenthTimeClicking || timesBought > 1 ? 'visible' : ''}"
         class:explode={TenthTimeClicking}
     >
         <div
@@ -48,7 +49,7 @@
         id="SHOP"
         onclick={(shopOpened = !shopOpened)}
         class:explode = {hundredthTimeClicking}
-        class=" {clicks >= 100
+        class=" {clicks >= 100 || timesBought > 1
             ? 'visible'
             : 'invisible'} flex items-center justify-center text-center absolute right-10 top-10 bg-emerald-700 border-4 border-black z-2 w-80 h-30"
     >
@@ -76,7 +77,7 @@
             ? 'translate-x-0'
             : 'translate-x-full'}"
     >
-        <button class="w-40" onclick={clickImprovementBought} id="clickImprovement"> CLICK POWER: {price} bucks</button>
+        <button class="w-40" onclick={clickImprovementBought} id="clickImprovement {(clicks < price) ? 'disabled' : 'enabled'}"> CLICK POWER: {price} bucks</button>
     </div>
 </div>
 <button onclick={clicks+=1000}> HACK </button>

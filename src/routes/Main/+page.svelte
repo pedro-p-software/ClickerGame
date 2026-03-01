@@ -33,7 +33,7 @@
     }
 
     let timesBoughtAC = $state(0);
-    let autoClickerPrice = $derived((10 * timesBoughtAC) ** 2 + 500);
+    let autoClickerPrice = $derived(((10 * timesBoughtAC) ** 2) + 100);
     let autoClickerPower = $state(0);
     let autoClickerOn = $derived(timesBoughtAC > 0);
 
@@ -42,9 +42,9 @@
             showCantBuy = true;
             setTimeout(() => (showCantBuy = false), 1000);
         } else {
-            autoClickerPower++;
+            clicks -= autoClickerPrice
             timesBoughtAC++;
-            clicks -= autoClickerPrice;
+            autoClickerPower++;
         }
     }
 
@@ -56,7 +56,7 @@
                 clicks += autoClickerPower;
             }, 1000);
         } return () => {
-            if ((intervalId)) {
+            if (intervalId) {
                 clearInterval(intervalId);
             }
         };
@@ -132,7 +132,9 @@
                 </li>
 
                 <li>
-                    <button onclick={autoClickerBought}>
+                    <button
+                    class="w-full border-4 border-black mt-5"
+                    onclick={autoClickerBought}>
                         +1 AUTO CLICKER: {autoClickerPrice}
                     </button>
                 </li>
